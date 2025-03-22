@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     'user',
+    'wish',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,19 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'wishlist.urls'
+
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'JWT Authorization header using the Bearer scheme. Example: "Bearer <your_token>"',
+        }
+    },
+    'USE_SESSION_AUTH': False,  # отключает авторизацию через куки
+}
 
 TEMPLATES = [
     {

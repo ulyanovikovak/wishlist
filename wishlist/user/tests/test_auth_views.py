@@ -47,7 +47,7 @@ def test_register_user(api_client):
         "username": "newuser",
         "password": "newpassword123"
     }
-    url = reverse("register")  # Пример: путь должен соответствовать urls.py
+    url = reverse("register")  # Пример: путь должен соответствовать urls.py.py
     response = api_client.post(url, payload)
     assert response.status_code == status.HTTP_201_CREATED
     assert User.objects.filter(email="newuser@example.com").exists()
@@ -55,7 +55,7 @@ def test_register_user(api_client):
 
 @pytest.mark.django_db
 def test_login_user(api_client, user_data, user):
-    url = reverse("login")  # Пример: путь должен соответствовать urls.py
+    url = reverse("login")  # Пример: путь должен соответствовать urls.py.py
     response = api_client.post(url, {
         "email": user_data["email"],
         "password": user_data["password"]
