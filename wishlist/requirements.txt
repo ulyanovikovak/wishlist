@@ -6,6 +6,8 @@ charset-normalizer==3.4.0
 contourpy==1.2.1
 cycler==0.12.1
 Django==5.1.7
+djangorestframework==3.15.2
+djangorestframework_simplejwt==5.5.0
 filelock==3.16.1
 flatbuffers==24.3.25
 fonttools==4.53.1
@@ -35,8 +37,8 @@ optree==0.13.0
 packaging==24.1
 pandas==2.2.2
 pillow==10.4.0
+psycopg2==2.9.10
 protobuf==4.25.5
-pyflagser==0.4.7
 Pygments==2.18.0
 Pympler==1.1
 pyparsing==3.1.2
