@@ -25,6 +25,9 @@ services:
     environment:
       - DATABASE_HOST=db
       - DATABASE_PORT=5432
+      - POSTGRES_DB =  wishlist
+      - POSTGRES_USER = user
+      - POSTGRES_PASSWORD = password
     command: [ "sh", "entrypoint.sh" ]
 
 volumes:
