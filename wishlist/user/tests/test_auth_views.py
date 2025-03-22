@@ -9,7 +9,6 @@ import pytest
 
 pytestmark = pytest.mark.django_db
 
-
 User = get_user_model()
 
 
@@ -40,6 +39,7 @@ def auth_tokens(user):
         "access": str(refresh.access_token)
     }
 
+
 @pytest.mark.django_db
 def test_register_user(api_client):
     payload = {
@@ -52,6 +52,7 @@ def test_register_user(api_client):
     assert response.status_code == status.HTTP_201_CREATED
     assert User.objects.filter(email="newuser@example.com").exists()
 
+
 @pytest.mark.django_db
 def test_login_user(api_client, user_data, user):
     url = reverse("login")  # Пример: путь должен соответствовать urls.py
@@ -63,6 +64,7 @@ def test_login_user(api_client, user_data, user):
     assert "access" in response.data
     assert "refresh" in response.data
 
+
 @pytest.mark.django_db
 def test_profile_view(api_client, auth_tokens):
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_tokens['access']}")
@@ -71,12 +73,14 @@ def test_profile_view(api_client, auth_tokens):
     assert response.status_code == status.HTTP_200_OK
     assert "email" in response.data
 
+
 @pytest.mark.django_db
 def test_logout(api_client, auth_tokens):
     url = reverse("logout")
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {auth_tokens['access']}")
     response = api_client.post(url, {"refresh": auth_tokens["refresh"]})
     assert response.status_code == status.HTTP_205_RESET_CONTENT
+
 
 @pytest.mark.django_db
 def test_user_update(api_client, auth_tokens):
