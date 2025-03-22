@@ -13,13 +13,11 @@ from .serializers import RegisterSerializer, LoginSerializer, JWTSerializer, Use
 
 User = get_user_model()
 
+
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
     permission_classes = [AllowAny]
-
-
-
 
 
 class LoginView(generics.GenericAPIView):
@@ -50,3 +48,34 @@ class LogoutView(APIView):
             return Response({"message": "logout"}, status=status.HTTP_205_RESET_CONTENT)
         except Exception:
             return Response({"error": "error token"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileView(generics.RetrieveAPIView):
+    authentication_classes = [JWTAuthentication]  # Добавляем поддержку JWT
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        user_data = {
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'email': user.email,
+            'username': user.username,
+            'phone_number': user.phone_number if hasattr(user, 'phone_number') else None,
+        }
+        return Response(user_data)
+
+
+class UserUpdateView(APIView):
+    authentication_classes = [JWTAuthentication]  # Добавляем поддержку JWT
+    permission_classes = [IsAuthenticated]  # Только авторизованные пользователи
+
+    def put(self, request):
+        user = request.user  # Берем текущего пользователя
+        serializer = UserSerializer(user, data=request.data, partial=True)  # Разрешаем частичное обновление
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
