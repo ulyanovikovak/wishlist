@@ -36,7 +36,9 @@ jobs:
     - name: Run migrations and tests inside container
       working-directory: wishlist
       run: |
-        docker compose -f docker-compose.yml run --rm web sh -c "
+        docker compose -f docker-compose.yml run --rm \
+        -e DJANGO_SETTINGS_MODULE=wishlist.settings \
+        web sh -c "
           python manage.py migrate &&
           pytest -v
         "
