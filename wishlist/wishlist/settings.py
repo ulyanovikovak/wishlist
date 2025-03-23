@@ -87,6 +87,60 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "wishlist.wsgi.application"
 
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{{"time": "{asctime}", "level": "{levelname}", "module": "{name}", "message": "{message}"}}',
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+            'style': '{',
+        },
+        'simple': {
+            'format': '[{levelname}] {asctime} {name} - {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ["console"],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.db.backends': {
+            'handlers': ["console"],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ["console"],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'user': {
+            'handlers': ["console"],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'wish': {
+            'handlers': ["console"],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
