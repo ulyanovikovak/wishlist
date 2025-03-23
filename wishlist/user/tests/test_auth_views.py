@@ -1,10 +1,9 @@
 import pytest
-from django.urls import reverse
-from rest_framework.test import APIClient
-from rest_framework import status
 from django.contrib.auth import get_user_model
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
-
 
 pytestmark = pytest.mark.django_db
 
@@ -21,7 +20,7 @@ def user_data():
     return {
         "email": "test@example.com",
         "username": "testuser",
-        "password": "strongpassword123"
+        "password": "strongpassword123",
     }
 
 
@@ -33,10 +32,7 @@ def user(user_data):
 @pytest.fixture
 def auth_tokens(user):
     refresh = RefreshToken.for_user(user)
-    return {
-        "refresh": str(refresh),
-        "access": str(refresh.access_token)
-    }
+    return {"refresh": str(refresh), "access": str(refresh.access_token)}
 
 
 @pytest.mark.django_db
@@ -44,7 +40,7 @@ def test_register_user(api_client):
     payload = {
         "email": "newuser@example.com",
         "username": "newuser",
-        "password": "newpassword123"
+        "password": "newpassword123",
     }
     url = reverse("register")  # Пример: путь должен соответствовать urls.py.py
     response = api_client.post(url, payload)
@@ -55,10 +51,9 @@ def test_register_user(api_client):
 @pytest.mark.django_db
 def test_login_user(api_client, user_data, user):
     url = reverse("login")  # Пример: путь должен соответствовать urls.py.py
-    response = api_client.post(url, {
-        "email": user_data["email"],
-        "password": user_data["password"]
-    })
+    response = api_client.post(
+        url, {"email": user_data["email"], "password": user_data["password"]}
+    )
     assert response.status_code == status.HTTP_200_OK
     assert "access" in response.data
     assert "refresh" in response.data
@@ -88,7 +83,7 @@ def test_user_update(api_client, auth_tokens):
     payload = {
         "first_name": "Updated",
         "last_name": "Name",
-        "phone_number": "+70000000000"
+        "phone_number": "+70000000000",
     }
     response = api_client.put(url, payload)
     assert response.status_code == status.HTTP_200_OK

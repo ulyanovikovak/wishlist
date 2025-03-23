@@ -15,16 +15,57 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Gift',
+            name="Gift",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Название подарка')),
-                ('description', models.TextField(blank=True, verbose_name='Описание')),
-                ('url', models.URLField(blank=True, verbose_name='Ссылка на подарок')),
-                ('price', models.DecimalField(blank=True, decimal_places=2, max_digits=10, null=True, verbose_name='Примерная цена')),
-                ('is_reserved', models.BooleanField(default=False, verbose_name='Зарезервирован')),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='gifts', to=settings.AUTH_USER_MODEL, verbose_name='Кому подарок')),
-                ('reserved_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='reserved_gifts', to=settings.AUTH_USER_MODEL, verbose_name='Зарезервировал')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(max_length=255, verbose_name="Название подарка"),
+                ),
+                ("description", models.TextField(blank=True, verbose_name="Описание")),
+                ("url", models.URLField(blank=True, verbose_name="Ссылка на подарок")),
+                (
+                    "price",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=2,
+                        max_digits=10,
+                        null=True,
+                        verbose_name="Примерная цена",
+                    ),
+                ),
+                (
+                    "is_reserved",
+                    models.BooleanField(default=False, verbose_name="Зарезервирован"),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="gifts",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Кому подарок",
+                    ),
+                ),
+                (
+                    "reserved_by",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="reserved_gifts",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Зарезервировал",
+                    ),
+                ),
             ],
         ),
     ]

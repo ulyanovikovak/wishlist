@@ -1,12 +1,12 @@
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import Gift
 from .serializers import GiftSerializer
-from django.shortcuts import get_object_or_404
 
 
 class GiftListView(APIView):
@@ -17,6 +17,7 @@ class GiftListView(APIView):
         gifts = Gift.objects.filter(owner=request.user)
         serializer = GiftSerializer(gifts, many=True)
         return Response(serializer.data)
+
 
 class GiftCreateView(APIView):
     authentication_classes = [JWTAuthentication]  # Добавляем поддержку JWT
