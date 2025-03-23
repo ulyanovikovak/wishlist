@@ -17,8 +17,7 @@ Including another URLconf
 
 from django.urls import path
 
-from .views import (LoginView, LogoutView, ProfileView, RegisterView,
-                    UserUpdateView)
+from .views import LoginView, LogoutView, ProfileView, RegisterView, UserUpdateView
 
 urlpatterns = [
     path("register/", RegisterView.as_view(), name="register"),
