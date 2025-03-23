@@ -10,7 +10,7 @@ from .serializers import GiftSerializer
 
 
 class GiftListView(APIView):
-    authentication_classes = [JWTAuthentication]  # Добавляем поддержку JWT
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -20,7 +20,7 @@ class GiftListView(APIView):
 
 
 class GiftCreateView(APIView):
-    authentication_classes = [JWTAuthentication]  # Добавляем поддержку JWT
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
@@ -32,7 +32,7 @@ class GiftCreateView(APIView):
 
 
 class GiftDetailView(APIView):
-    authentication_classes = [JWTAuthentication]  # Добавляем поддержку JWT
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get_object(self, pk, user):

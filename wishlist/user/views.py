@@ -36,14 +36,14 @@ class LoginView(generics.GenericAPIView):
 
 
 class LogoutView(APIView):
-    authentication_classes = [JWTAuthentication]  # Добавляем поддержку JWT
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         try:
             refresh_token = request.data["refresh"]
             token = RefreshToken(refresh_token)
-            token.blacklist()  # Добавляем токен в черный список
+            token.blacklist()
             return Response({"message": "logout"}, status=status.HTTP_205_RESET_CONTENT)
         except Exception:
             return Response(
@@ -52,7 +52,7 @@ class LogoutView(APIView):
 
 
 class ProfileView(generics.RetrieveAPIView):
-    authentication_classes = [JWTAuthentication]  # Добавляем поддержку JWT
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
@@ -70,14 +70,14 @@ class ProfileView(generics.RetrieveAPIView):
 
 
 class UserUpdateView(APIView):
-    authentication_classes = [JWTAuthentication]  # Добавляем поддержку JWT
-    permission_classes = [IsAuthenticated]  # Только авторизованные пользователи
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def put(self, request):
-        user = request.user  # Берем текущего пользователя
+        user = request.user
         serializer = UserSerializer(
             user, data=request.data, partial=True
-        )  # Разрешаем частичное обновление
+        )
 
         if serializer.is_valid():
             serializer.save()
