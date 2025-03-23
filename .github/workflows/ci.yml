@@ -33,6 +33,10 @@ jobs:
       working-directory: wishlist
       run: docker compose -f docker-compose.yml build
 
+    - name: Wait for containers
+      run: sleep 30
+
+
     - name: Run migrations and tests inside container
       working-directory: wishlist
       run: |
