@@ -1,4 +1,10 @@
-Вот перепечатанный список без изменений, в виде для README:
+
+
+для запуска 
+
+docker compose build --no-cache
+docker compose up -d
+
 
 ---
 
