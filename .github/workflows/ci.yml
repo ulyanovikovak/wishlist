@@ -44,6 +44,8 @@ jobs:
         python wishlist/manage.py migrate
 
     - name: test
+      env:
+        DJANGO_SETTINGS_MODULE: wishlist.settings
       run: |
         pytest -v
 
