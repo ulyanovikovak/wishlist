@@ -43,11 +43,9 @@ jobs:
       run: |
         python wishlist/manage.py migrate
 
-    - name: test
-      env:
-        DJANGO_SETTINGS_MODULE: wishlist.settings
-        PYTHONPATH: ${{ github.workspace }}
+    - name: Run tests
       run: |
+        export PYTHONPATH=$(pwd)
         pytest -v
 
 
