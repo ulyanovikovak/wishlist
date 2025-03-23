@@ -46,6 +46,7 @@ jobs:
     - name: test
       env:
         DJANGO_SETTINGS_MODULE: wishlist.settings
+        PYTHONPATH: ${{ github.workspace }
       run: |
         pytest -v
 
